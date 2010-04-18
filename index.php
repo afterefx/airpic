@@ -14,14 +14,17 @@ HTML;
 
     for($countRow=0; $countRow < 3; $countRow++)
     {
-        $content.=<<<HTML
-        <div id="pic">
-        <a href="$fullDir$fullArray[$index]">
-        <span class="frame-outer " style="display:inline;">
-        <span><span><span><span>
-        <img src="$thumbDir$fullArray[$index]" height="20%"/>
-        </span></span></span></span></span></a></div> 
+        if($fullArray[$index] != NULL)
+        {
+            $content.=<<<HTML
+            <div id="pic">
+            <a href="$fullDir$fullArray[$index]">
+            <span class="frame-outer " style="display:inline;">
+            <span><span><span><span>
+            <img src="$thumbDir$fullArray[$index]" height="20%"/>
+            </span></span></span></span></span></a></div> 
 HTML;
+        }
         $index++;
     }
 
