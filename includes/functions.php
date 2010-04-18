@@ -78,7 +78,7 @@ function getNumPages($numImages, $imagesPerPage)
     return $numPages;
 }
 
-function checkNewImages($fullArray, $thumbArray, $fullPath="images/full/", $thumbPath="images/")
+function checkNewImages($fullArray, $thumbArray, $fullPath="images/", $thumbPath="thumbs/")
 {
     for($index=0; $index < count($fullArray); $index++)
     {
@@ -90,16 +90,29 @@ function checkNewImages($fullArray, $thumbArray, $fullPath="images/full/", $thum
         //echo "<br />";
         //echo "start check";
 
-        if(!array_search($fullArray[$index],$thumbArray))
+        $resized= FALSE;
+        if($thumbArray == NULL || !array_search($fullArray[$index],$thumbArray))
+        {
                 resizeImage($thumbPath, $fullPath,  $currentName);
+                $resized=TRUE;
+        }
+
 
         //echo "$index <br />";
     }
     //echo "done<br />";
+        if($resized)
+        {
+                echo <<<HTML
+                    <meta http-equiv="Pragma" content="no-cache">
+
+HTML;
+        }
+
 
 }
 
-function resizeImage($targetDir, $sourceDir, $filename, $percent=.5)
+function resizeImage($targetDir, $sourceDir, $filename, $percent=.15)
 {
     //echo "resizing <br />";
     // Content type
@@ -119,12 +132,12 @@ function resizeImage($targetDir, $sourceDir, $filename, $percent=.5)
     $new_height = $height * $percent;
 
     // Resample
-    $image_p = imagecreatetruecolor($new_width, $new_height);
+    $image_b = imagecreatetruecolor($new_width, $new_height);
     $image = imagecreatefromjpeg($currentImage);
-    imagecopyresampled($image_p, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
+    imagecopyresampled($image_b, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
     // Output
-    imagejpeg($image_p, $targetImage, 100);
+    imagejpeg($image_b, $targetImage, 100);
 }
 
 function openreaddir($dirName)

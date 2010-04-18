@@ -1,4 +1,3 @@
- 
 <?php
 $content=<<<HTML
 <html>

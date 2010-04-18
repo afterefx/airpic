@@ -1,9 +1,8 @@
 <?php
 
 $title = "Airpic";
-$directoryName="images/"; //take this out later
-$fullDir="images/full/";
-$thumbDir="images/";
+$fullDir="images/";
+$thumbDir="thumbs/";
 
 $imagesPerPage = 6; //must be multiple of 3
 
