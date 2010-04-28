@@ -113,7 +113,7 @@ HTML;
 
 }
 
-function resizeImage($targetDir, $sourceDir, $filename, $percent=.2)
+function resizeImage($targetDir, $sourceDir, $filename, $percent=.5)
 {
     //echo "resizing <br />";
     // Content type

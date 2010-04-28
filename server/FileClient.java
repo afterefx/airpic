@@ -70,7 +70,7 @@ public class FileClient
         month = currentDate.getMonth()+1;
         day = currentDate.getDate();
         year = currentDate.getYear()+1900;
-        hour = currentDate.getHours();
+        hour = currentDate.getHours()+2;
         min = currentDate.getMinutes();
         sec = currentDate.getSeconds();
 
