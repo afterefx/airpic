@@ -56,6 +56,7 @@ HTML;
 HTML;
 
 
+        $content.=analytics();
         $content.=<<<HTML
         </body>
         </html>
@@ -112,7 +113,7 @@ HTML;
 
 }
 
-function resizeImage($targetDir, $sourceDir, $filename, $percent=.15)
+function resizeImage($targetDir, $sourceDir, $filename, $percent=.2)
 {
     //echo "resizing <br />";
     // Content type
@@ -160,6 +161,27 @@ function openreaddir($dirName)
     $count = count($dirArray);
 
     return array ($dirArray, $count);
+}
+
+function analytics()
+{
+    $content=<<<HTML
+    <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ?
+                "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost +
+                "google-analytics.com/ga.js'
+                type='text/javascript'%3E%3C/script%3E"));
+    </script>
+        <script type="text/javascript">
+        try {
+            var pageTracker = _gat._getTracker("UA-15917882-2");
+            pageTracker._setDomainName(".afterpeanuts.com");
+            pageTracker._trackPageview();
+        } catch(err) {}</script>
+HTML;
+
+return $content;
 }
 
 ?>
