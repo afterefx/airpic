@@ -65,6 +65,7 @@ public class FileClient
     {
         Date currentDate;
         int month, day, year, hour, min, sec;
+        String output="";
 
         currentDate = new Date();
         month = (currentDate.getMonth()+1)%12;
@@ -74,17 +75,29 @@ public class FileClient
         min = currentDate.getMinutes();
         sec = currentDate.getSeconds();
 
-        return Integer.toString(month)
-            +"."
-            +Integer.toString(day)
-            +"."
-            +Integer.toString(year)
-            +"."
-            +Integer.toString(hour)
-            +"."
-            +Integer.toString(min)
-            +"."
-            +Integer.toString(sec);
+        output+=Integer.toString(year);
+        if(month < 10)
+            output += "0";
+        output += Integer.toString(month);
+            output +=".";
+        if(day < 10)
+            output += "0";
+        output +=Integer.toString(day);
+        output +=".";
+        output +=".";
+        if(hour < 10)
+            output += "0";
+        output +=Integer.toString(hour);
+        output +=".";
+        if(min < 10)
+            output += "0";
+        output +=Integer.toString(min);
+        output +=".";
+        if(sec < 10)
+            output += "0";
+        output +=Integer.toString(sec);
+
+            return output;
             
     }
 

@@ -5,6 +5,9 @@ include_once 'settings.php';
 list($thumbArray, $thumbCount) = openreaddir($thumbDir);
 list($fullArray, $fullCount) = openreaddir($fullDir);
 
+sort($fullArray);
+$fullArray = array_reverse($fullArray);
+
 checkNewImages($fullArray, $thumbArray);
 
 //get the page number
