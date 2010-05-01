@@ -76,6 +76,7 @@ public class FileClient
         sec = currentDate.getSeconds();
 
         output+=Integer.toString(year);
+            output +=".";
         if(month < 10)
             output += "0";
         output += Integer.toString(month);
@@ -83,7 +84,6 @@ public class FileClient
         if(day < 10)
             output += "0";
         output +=Integer.toString(day);
-        output +=".";
         output +=".";
         if(hour < 10)
             output += "0";
