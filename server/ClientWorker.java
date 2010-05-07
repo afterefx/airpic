@@ -20,7 +20,7 @@ public class ClientWorker implements Runnable
     //Constructor
     ClientWorker(Socket _incomingSocket)
     {
-        System.out.println("Child thread created.")
+        System.out.println("Child thread created.");
         this.clientSocket = _incomingSocket;
         this.buffer = new byte[BUFFER_SIZE];
     }
