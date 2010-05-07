@@ -15,41 +15,44 @@ public class ClientWorker implements Runnable
     private Socket clientSocket;
     private String currentDateTimeString;
     final byte[] buffer;
-    final int BUFFER_SIZE=33989;
+    final int BUFFER_SIZE=35009;
         
     //Constructor
     ClientWorker(Socket _incomingSocket)
     {
+        System.out.println("Child thread created.")
         this.clientSocket = _incomingSocket;
         this.buffer = new byte[BUFFER_SIZE];
     }
 
     public void run() 
     {
-        try{
-            acceptTransfer();
-        }catch(IOException e)
+        try
         {
-            System.err.println("\nacceptTransfer in Clientworker threw an error");
+            acceptTransfer();
+        }
+        catch(IOException e)
+        {
+            System.err.println("acceptTransfer in Clientworker threw an error");
         }
     }
 
     public void acceptTransfer() throws IOException
     {
-        System.out.println("\nAccepted connection : " + clientSocket);
+        System.out.println("Accepted connection : " + clientSocket);
         BufferedInputStream in = new BufferedInputStream(clientSocket.getInputStream());
 
         currentDateTimeString = getCurrentDateString();
 
-        System.err.println("\nUploadReciever.receive: Start!");
+        System.out.println("UploadReciever.receive: Start!");
         int size = 0;
         BufferedOutputStream out = null;
         try 
         {
             out = new BufferedOutputStream(new FileOutputStream("images/"+currentDateTimeString +".jpg"));
-            System.err.println("\nUploadReciever.receive: File output stream is open.");
+            System.out.println("UploadReciever.receive: File output stream is open.");
             int n = -1;
-            System.err.println("\nUploadReciever.receive: reading buffers of "+BUFFER_SIZE+" bytes from client-socket ...");
+            System.out.println("UploadReciever.receive: reading buffers of "+BUFFER_SIZE+" bytes from client-socket ...");
             while ( (n=in.read(buffer)) != -1 ) 
             {
                 size += n;
@@ -59,17 +62,21 @@ public class ClientWorker implements Runnable
                 //System.err.print(' '); // slow!!!
             }
             out.flush();
-            System.err.println("\nUploadReciever.receive: Done!  returning "+size);
+            System.out.println("UploadReciever.receive: Done!  returning "+size);
         }
         catch(IOException e)
         {
-            System.err.println("\nIO Error.");
+
+            System.err.println("=====================================");
+            System.err.println("\nIO Error for file: "+currentDateTimeString+".jpg");
+            System.err.println("For client: "+clientSocket);
+            System.err.println("=====================================");
         }
         finally
         {
             if(out!=null)
                 out.close();
-            System.err.println("\nUploadReciever.receive: File output stream is closed.");
+            System.err.println("UploadReciever.receive: File output stream is closed.");
             in.close();
             clientSocket.close();
         }
