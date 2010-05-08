@@ -206,6 +206,7 @@ Purpose: find how many pages to display
          per page
 Param 1 - $numImages: total number of images
 Param 2 - $imagesPerPage: # of images per page
+Returns: the number of pages
 **********************************************/
 function getNumPages($numImages, $imagesPerPage)
 {
@@ -222,6 +223,12 @@ function getNumPages($numImages, $imagesPerPage)
 
 /*********************************************
 Name; openreaddir
+Purpose: open directory, grab all filenames
+        close the direcotry and count number
+        of items
+Param 1 - $dirName: name of directory to open
+Returns: an array of the contents of the directory
+         and a count of the number of items
 *********************************************/
 function openreaddir($dirName)
 {
@@ -245,13 +252,31 @@ function openreaddir($dirName)
     return array ($dirArray, $count);
 }
 
+
+/*********************************************
+Name: resizeImage
+Purpose: take an image and resize it, then 
+        place the image in the target directory
+        with teh same file name.
+Param 1 - $targetDir: directory to place resized
+                      image into
+Param 2 - $sourceDir: directory to get image
+                      from
+Param 3 - $filename: name of file to resize
+Param 4 - $percent: percentage to resize image
+                    by
+*********************************************/
 function resizeImage($targetDir, $sourceDir, $filename, $percent=.5)
 {
     //echo "resizing <br />";
     // Content type
     //header('Content-type: image/jpeg');
+
+    //Construct filename for source
     $currentImage = $sourceDir;
     $currentImage .= $filename;
+
+    //Construct filename for target
     $targetImage = $targetDir;
     $targetImage .= $filename;
 
@@ -260,9 +285,9 @@ function resizeImage($targetDir, $sourceDir, $filename, $percent=.5)
     //echo "Target dir: $targetDir";
     //echo ", Source dir: $sourceDir";
     //echo ", Filename: $filename";
-    list($width, $height) = getimagesize($currentImage);
-    $new_width = $width * $percent;
-    $new_height = $height * $percent;
+    list($width, $height) = getimagesize($currentImage); //get image width and height
+    $new_width = $width * $percent; //change to new size
+    $new_height = $height * $percent; //change to new size
 
     // Resample
     $image_b = imagecreatetruecolor($new_width, $new_height);

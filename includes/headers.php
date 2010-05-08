@@ -1,4 +1,6 @@
 <?php
+
+//insert head portion of webpage
 $content=<<<HTML
 <html>
 <head>
