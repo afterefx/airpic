@@ -20,8 +20,8 @@ public class FileClient
             try
             {
                 w = new ClientWorker(server.accept());
-                Thread t = new Thread(w);
-                t.start();
+                Thread t = new Thread(w);//create thread
+                t.start(); //start thread
             }
             catch(IOException e)
             {

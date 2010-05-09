@@ -21,15 +21,16 @@ public class ClientWorker implements Runnable
     ClientWorker(Socket _incomingSocket)
     {
         System.out.println("Child thread created.");
-        this.clientSocket = _incomingSocket;
-        this.buffer = new byte[BUFFER_SIZE];
+        this.clientSocket = _incomingSocket; //set the socket
+        this.buffer = new byte[BUFFER_SIZE]; //create a buffer
     }
 
+    //Function is run when the thread starts
     public void run() 
     {
         try
         {
-            acceptTransfer();
+            acceptTransfer();//start the file transfer
         }
         catch(IOException e)
         {
@@ -37,6 +38,7 @@ public class ClientWorker implements Runnable
         }
     }
 
+    //accepts file transfer
     public void acceptTransfer() throws IOException
     {
         System.out.println("Accepted connection : " + clientSocket);
