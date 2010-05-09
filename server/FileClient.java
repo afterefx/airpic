@@ -10,16 +10,15 @@ public class FileClient
     {
         // create socket
         ServerSocket server = new ServerSocket(13267);
-        Socket clientSocket;
+        ClientWorker w; //client object
 
         //loop waiting for connection
         while (true) 
         {
             System.out.println("Waiting..."); 
-            ClientWorker w;
             try
             {
-                w = new ClientWorker(server.accept());
+                w = new ClientWorker(server.accept()); //create new client object
                 Thread t = new Thread(w);//create thread
                 t.start(); //start thread
             }
