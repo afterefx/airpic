@@ -43,8 +43,8 @@ function checkForDeletion($fullPath, $currentName)
     //check file size
     $currentSize = filesize($imagePath);
 
-    //check filesize and then check 
-    if($currentSize == 0)
+    //check filesize 
+    if($currentSize <= 20)
     {
         chmod($imagePath, 0777); //change permissions
         $deleted = unlink($imagePath); //delete file
