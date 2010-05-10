@@ -3,4 +3,5 @@
 *.png
 thumbs/
 images/
+imgBak/
 *.class
