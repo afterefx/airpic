@@ -5,3 +5,4 @@ thumbs/
 images/
 imgBak/
 *.class
+.DS_Store
