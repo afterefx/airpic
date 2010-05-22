@@ -6,3 +6,4 @@ images/
 imgBak/
 *.class
 .DS_Store
+databaseSettings.php
