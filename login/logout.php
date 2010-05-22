@@ -1,13 +1,4 @@
 <? 
-    /**
-     * logout.php
-     *
-     * A simple logout module for all of our login modules.
-     *
-     * Computer Science E-75
-     * David J. Malan
-     */
-
     // enable sessions
     session_start();
 

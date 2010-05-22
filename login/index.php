@@ -1,13 +1,4 @@
 <? 
-    /**
-     * home.php
-     *
-     * A simple home page for these login demos.
-     *
-     * Computer Science E-75
-     * David J. Malan
-     */
-
     // enable sessions
     session_start();
     $content=top();

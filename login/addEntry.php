@@ -1,15 +1,4 @@
 <?
-    /**
-     * login6.php
-     *
-     * A simple login module that checks a username and password
-     * against a MySQL table with no encryption by asking for a binary answer.
-     *
-     * David J. Malan
-     * Computer Science E-75
-     * Harvard Extension School
-     */
-
 include_once 'databaseSettings.php';
 
     // enable sessions
