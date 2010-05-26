@@ -1,31 +1,28 @@
 <? 
+include_once 'display.php';
+
     // enable sessions
     session_start();
     $content=top();
 
-    if ($_SESSION["authenticated"]) 
-    { 
+        connect();
 
-    $content.=<<<HTML
-        You are logged in!  
-        <br />
-        <a href="logout.php">log out</a>
+        $result = checkForSession();
+
+        if($result)
+        {
+            $content.=<<<HTML
+            You are logged in!  
+            <br />
+            <a href="logout.php">log out</a>
 HTML;
-    } 
+        }
+        else
+            redirect("login.php");
 
-    else 
-    { 
+    $content.=bottom();
 
-//need to redirect to login page here
-    $content.=<<<HTML
-        You are not logged in!
-HTML;
-    header("Location: login.php");
-    } 
-
-$content.=bottom();
-
-echo $content;
+    echo $content;
 
 //===================================
 function top()
@@ -53,10 +50,7 @@ function bottom()
     <br />
     <b>Login Demos</b>
     <ul>
-      <li><a href="login1.php">version 1</a></li>
-      <li><a href="login2.php">version 2</a></li>
-      <li><a href="login3.php">version 3</a></li>
-      <li><a href="login4.php">version 4</a></li>
+      <li><a href="login.php">login</a></li>
     </ul>
   </body>
 </html>
@@ -64,5 +58,5 @@ function bottom()
 HTML;
     return $content;
 }
-?>
 
+?>

@@ -1,29 +1,26 @@
 <?
-include_once 'databaseSettings.php';
+
+include_once 'display.php';
 
     // enable sessions
     session_start();
 
-    // connect to database
-    //trustedpeople
-    if (($connection = mysql_connect($url, $userName, $password)) === FALSE)
-        die("Could not connect to database");
-
-    // select database
-    if (mysql_select_db($database, $connection) === FALSE)
-        die("Could not select database");
+    connect();
 
     // if username and password were submitted, check them
-    if (isset($_POST["user"]) && isset($_POST["pass"]))
+    if (isset($_POST["user"]) 
+            && isset($_POST["pass"])
+            && isset($_POST["email"]))
     {
         //encrypt password
         $userpass = hash("sha512", $_POST["pass"]);
 
         // prepare SQL
-        $sql = sprintf("INSERT INTO users (user, pass, email) VALUES ('%s', '%s', '%s')",
+        $sql = sprintf("INSERT INTO users (user, pass, email, created) VALUES ('%s', '%s', '%s', '%s')",
                        mysql_real_escape_string($_POST["user"]),
-                       mysql_real_escape_string($userpass)
-                       mysql_real_escape_string($_POST["email"]));
+                       mysql_real_escape_string($userpass),
+                       mysql_real_escape_string($_POST["email"]),
+                       time());
 
         // execute query
         $result = mysql_query($sql);
@@ -33,12 +30,10 @@ include_once 'databaseSettings.php';
         if($result)
         {
             echo "SUCCESS!";
-            header("Location: index.php");
+            redirect("index.php");
         }
         else
             echo "Failure";
-
-
     }
 ?>
 

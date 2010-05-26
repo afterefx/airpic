@@ -1,15 +1,16 @@
 <?
-include_once 'databaseSettings.php';
+include_once 'display.php';
+
     // enable sessions
     session_start();
 
-    // connect to database
-    if (($connection = mysql_connect($url, $userName, $password)) === FALSE)
-        die("Could not connect to database");
+    connect();
 
-    // select database
-    if (mysql_select_db($database, $connection) === FALSE)
-        die("Could not select database");
+    $result = checkForSession();
+
+    //check for authenticated sessions
+    if($result)
+        redirect("index.php");
 
     // if username and password were submitted, check them
     if (isset($_POST["user"]) && isset($_POST["pass"]))
@@ -29,25 +30,26 @@ include_once 'databaseSettings.php';
         // check whether we found a row
         if (mysql_num_rows($result) == 1)
         {
-            // remember that user's logged in
-            $_SESSION["authenticated"] = TRUE;
+
+            //create a token
              mt_srand();
                 $number = mt_rand();
             $token = hash("sha512",$number);
-            $_SESSION["token"] = $token;
 
-            //make entry into sql table for sessions
+            //add token to database and assign to user
+            $sql = sprintf("INSERT INTO session values ('%s', '%s', '%s', '%s')", $token, $_POST["user"], time(), time());
+            $result = mysql_query($sql);
+            $_SESSION['token'] = $token;
+            if(isset($_POST["remember"]) && $_POST["remember"] == "true")
+                setcookie("token", $token, time() + 14 * 24 * 60 * 60);
 
-            // redirect user to home page, using absolute path, per
-            // http://us2.php.net/manual/en/function.header.php
-            $host = $_SERVER["HTTP_HOST"];
-            $path = rtrim(dirname($_SERVER["PHP_SELF"]), "/\\");
-            header("Location: http://$host$path/index.php");
+
+            redirect("index.php");
             exit;
         }
         else
         {
-            header("Location: http://www.reddit.com/");
+            header("Location: http://www.reddit.com/");       
         }
 
     }
@@ -72,8 +74,8 @@ include_once 'databaseSettings.php';
           <td><input name="pass" type="password" /></td>
         </tr>
         <tr>
-          <td></td>
-          <td><input type="submit" value="Log In" /></td>
+          <td style="text-align:right"><input name="remember" type="checkbox" value="true"/></td>
+          <td>Remember me <input type="submit" value="Log In" /></td>
         </tr>
       </table>      
     </form>
