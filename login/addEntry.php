@@ -7,34 +7,40 @@ include_once 'display.php';
 
     connect();
 
-    // if username and password were submitted, check them
-    if (isset($_POST["user"]) 
+    $result = checkForSession();
+
+    if($result)
+    {
+        if (isset($_POST["user"]) 
             && isset($_POST["pass"])
             && isset($_POST["email"]))
-    {
-        //encrypt password
-        $userpass = hash("sha512", $_POST["pass"]);
+        {
+            //encrypt password
+            $userpass = hash("sha512", $_POST["pass"]);
 
-        // prepare SQL
-        $sql = sprintf("INSERT INTO users (user, pass, email, created) VALUES ('%s', '%s', '%s', '%s')",
+            // prepare SQL
+            $sql = sprintf("INSERT INTO users (user, pass, email, created) VALUES ('%s', '%s', '%s', '%s')",
                        mysql_real_escape_string($_POST["user"]),
                        mysql_real_escape_string($userpass),
                        mysql_real_escape_string($_POST["email"]),
                        time());
 
-        // execute query
-        $result = mysql_query($sql);
-        if ($result === FALSE)
-            die("Could not insert into database");
+            // execute query
+            $result = mysql_query($sql);
+            if ($result === FALSE)
+                die("Could not insert into database");
 
-        if($result)
-        {
-            echo "SUCCESS!";
-            redirect("index.php");
+            if($result)
+            {
+                echo "SUCCESS!";
+                redirect("index.php");
+            }
+            else
+                echo "Failure";
         }
-        else
-            echo "Failure";
     }
+    else
+        redirect("login.php");
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -65,5 +71,16 @@ include_once 'display.php';
         </tr>
       </table>      
     </form>
+    <br />
+    <br />
+    <br />
+    <a href="logout.php">Logout</a>
+    <br />
   </body>
 </html>
+
+
+
+
+
+

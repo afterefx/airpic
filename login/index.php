@@ -12,7 +12,10 @@ include_once 'display.php';
         if($result)
         {
             $content.=<<<HTML
-            You are logged in!  
+            You are logged in!  <br />
+            <a href="http://mobile.afterpeanuts.com/Airpic.apk">prog</a><br />
+            <br />
+            <br />
             <br />
             <a href="logout.php">log out</a>
 HTML;
