@@ -1,4 +1,4 @@
-<? 
+<?php
 include_once 'display.php';
 
     // enable sessions
