@@ -1,47 +1,56 @@
 <?php
 include_once 'includes/display.php';
+include_once 'login/display.php';
 
-//start gallery
-$content.=<<<HTML
-    <div id="gallery">
-HTML;
+session_start();
+connect();
+$result = checkForSession();
 
-//display the images
-for($index=($page-1)*$imagesPerPage; $index < ($page * $imagesPerPage); NULL)
+if($result)
 {
+    //start gallery
     $content.=<<<HTML
-        <div id="row">
+        <div id="gallery">
 HTML;
 
-    //put 3 images on the row
-    for($countRow=0; $countRow < 3; $countRow++)
+    //display the images
+    for($index=($page-1)*$imagesPerPage; $index < ($page * $imagesPerPage); NULL)
     {
-        if($fullArray[$index] != NULL) //display image if one is available
-        {
-            $content.=<<<HTML
-            <div id="pic">
-            <a href="$fullDir$fullArray[$index]">
-            <span class="frame-outer " style="display:inline;">
-            <span><span><span><span>
-            <img src="$thumbDir$fullArray[$index]" height="20%"/>
-            </span></span></span></span></span></a></div> 
+        $content.=<<<HTML
+            <div id="row">
 HTML;
+
+        //put 3 images on the row
+        for($countRow=0; $countRow < 3; $countRow++)
+        {
+            if($fullArray[$index] != NULL) //display image if one is available
+            {
+                $content.=<<<HTML
+                <div id="pic">
+                <a href="$fullDir$fullArray[$index]">
+                <span class="frame-outer " style="display:inline;">
+                <span><span><span><span>
+                <img src="$thumbDir$fullArray[$index]" height="20%"/>
+                </span></span></span></span></span></a></div> 
+HTML;
+            }
+            $index++; //increment index
         }
-        $index++; //increment index
+
+        //end the row
+        $content.=<<<HTML
+    </div>
+HTML;
     }
 
-    //end the row
+    //close the gallery
     $content.=<<<HTML
-</div>
-HTML;
-}
-
-//close the gallery
-$content.=<<<HTML
-</div>
+    </div>
 HTML;
 
-//display the webpage
-displayPage($content, $page, $fullCount, $imagesPerPage);
- 
+    //display the webpage
+    displayPage($content, $page, $fullCount, $imagesPerPage);
+}    
+else
+    redirect("login/login.php?page=http://mobile.afterpeanuts.com/");
 ?>

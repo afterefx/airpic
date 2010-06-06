@@ -185,7 +185,8 @@ HTML;
         //Show number of Images available
         *********************************/
         $content.=<<<HTML
-        Number Of Images Available: $indexCount </div>
+        Number Of Images Available: $indexCount <br />
+        <a href="login/logout.php">Logout</a></div>
 HTML;
 
 

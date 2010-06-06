@@ -43,8 +43,10 @@ include_once 'display.php';
             if(isset($_POST["remember"]) && $_POST["remember"] == "true")
                 setcookie("token", $token, time() + 14 * 24 * 60 * 60);
 
-
-            redirect("index.php");
+            if(isset($_POST["redirect"]))
+                header("Location: " . $_POST["redirect"]);
+            else 
+                redirect("index.php");
             exit;
         }
         else
@@ -62,8 +64,18 @@ include_once 'display.php';
     <title>Log In</title>
   </head>
   <body>
-    <form action="<? echo $_SERVER["PHP_SELF"]; ?>" method="post">
-      <table>
+    <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+    <?php
+    if(isset($_GET["page"]) && $_GET["page"] != '')
+{
+    $input = '<input name="redirect" type="hidden" value="';
+    $input .= $_GET["page"];
+    $input .= '">';
+
+    echo $input;
+} ?>
+      
+    <table>
         <tr>
           <td>Username:</td>
           <td>
