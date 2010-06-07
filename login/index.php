@@ -12,10 +12,21 @@ include_once 'display.php';
 
         if($result)
         {
+            $name = getName();
             $content.=<<<HTML
-            You are logged in!  <br />
+            Hello $name!  <br />
             <a href="http://mobile.afterpeanuts.com/Airpic.apk">prog</a><br />
             <br />
+HTML;
+            if(isAdmin())
+            {
+                $content.=<<<HTML
+                    <a href="addEntry.php">Add Entry</a><br />
+HTML;
+            }
+
+            $content.=<<<HTML
+
             <br />
             <br />
             <a href="logout.php">log out</a>
