@@ -11,6 +11,7 @@ include_once 'display.php';
 
     if(isAdmin())
     {
+        top();
         if($result)
         {
             if (isset($_POST["user"]) 
@@ -20,12 +21,23 @@ include_once 'display.php';
                 //encrypt password
                 $userpass = hash("sha512", $_POST["pass"]);
 
+                if($_POST["isAdmin"] == "on")
+                    $setAdmin=1;
+                else
+                    $setAdmin=0;
+
                 // prepare SQL
-                $sql = sprintf("INSERT INTO users (user, pass, email, created) VALUES ('%s', '%s', '%s', '%s')",
+                $sql = sprintf("INSERT INTO users (user, pass, fname, email,
+                    isAdmin, created, modifiedBy) VALUES ('%s', '%s', '%s',
+                        '%s', '%s', '%s', '%s')",
                            mysql_real_escape_string($_POST["user"]),
                            mysql_real_escape_string($userpass),
+                           mysql_real_escape_string($_POST['fname']),
                            mysql_real_escape_string($_POST["email"]),
-                           time());
+                           $setAdmin,
+                           time(),
+                           mysql_real_escape_string("chris"));
+
 
                 // execute query
                 $result = mysql_query($sql);
@@ -34,30 +46,33 @@ include_once 'display.php';
 
                 if($result)
                 {
-                    echo "SUCCESS!";
-                    redirect("index.php");
+                    echo "SUCCESS!" .  $_POST['fname'] ." was added to the user database.<br />";
                 }
                 else
                     echo "Failure";
             }
         }
         else
-            redirect("login.php");
+            redirect("auth.php");
     }
     else
         redirect("index.php");
 
 
-
-?>
-
+function top()
+{
+    echo<<<HTML
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <title>Add Entry</title>
   </head>
   <body>
+HTML;
+}
+
+?>
+
     <form action="<? echo $_SERVER["PHP_SELF"]; ?>" method="post">
       <table>
         <tr>
@@ -69,10 +84,18 @@ include_once 'display.php';
           <td>Password:</td>
           <td><input name="pass" type="password" /></td>
         </tr>
-         <tr>
+        <tr>
+          <td>First Name:</td>
+          <td><input name="fname" type="text" /></td>
+        </tr>
+        <tr>
           <td>Email:</td>
           <td><input name="email" type="text" /></td>
         </tr>
+       <tr>
+         <td>Admin: </td>
+         <td><input name="isAdmin" type="checkbox" /></td>
+       </tr>
        <tr>
           <td></td>
           <td><input type="submit" value="Add Entry" /></td>
@@ -82,7 +105,9 @@ include_once 'display.php';
     <br />
     <br />
     <br />
-    <a href="index.php">Home</a><br />
+    <a href="index.php">Home</a>
+    <br />
+    <br />
     <a href="logout.php">Logout</a>
     <br />
   </body>
