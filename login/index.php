@@ -15,25 +15,26 @@ include_once 'display.php';
             $name = getName();
             $content.=<<<HTML
             Hello $name!  <br />
-            <a href="http://mobile.afterpeanuts.com/Airpic.apk">prog</a><br />
-            <br />
+            <b>Links</b>
+            <ul>
+            <li><a href="http://mobile.afterpeanuts.com/Airpic.apk">android program</a></li>
+            <li><a href="http://mobile.afterpeanuts.com/">main site</a></li>
 HTML;
             if(isAdmin())
             {
                 $content.=<<<HTML
-                    <a href="addEntry.php">Add Entry</a><br />
+            <li><a href="addEntry.php">Add Entry</a></li>
 HTML;
             }
 
             $content.=<<<HTML
-
-            <br />
-            <br />
-            <a href="logout.php">log out</a>
+                <br />
+            <li><a href="logout.php">log out</a></li>
+            </ul>
 HTML;
         }
         else
-            redirect("login.php");
+            redirect("auth.php");
 
     $content.=bottom();
 
@@ -51,7 +52,6 @@ function top()
   </head>
   <body>
     <h1>Home</h1>
-    <h3>
 HTML;
 
     return $content;
@@ -61,12 +61,6 @@ HTML;
 function bottom()
 {
     $content=<<<HTML
-    </h3>
-    <br />
-    <b>Login Demos</b>
-    <ul>
-      <li><a href="login.php">login</a></li>
-    </ul>
   </body>
 </html>
 

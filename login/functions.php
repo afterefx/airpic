@@ -30,6 +30,7 @@ function checkForSession()
             die("Could nto query database");
         else
         {
+            $_SESSION['token'] = $_COOKIE['token'];
             updateLastSeen();
             return true;
         }
@@ -61,13 +62,27 @@ function generateApiKey()
 
 function getUserName()
 {
-    $getUserSQL = sprintf("SELECT user FROM session WHERE token='%s'",
-        mysql_real_escape_string($_SESSION["token"]));
+    if(isset($_SESSION["token"]))
+    {
+        $getUserSQL = sprintf("SELECT user FROM session WHERE token='%s'",
+            mysql_real_escape_string($_SESSION["token"]));
+    
+        $result = mysql_query($getUserSQL);
+    
+        $row = mysql_fetch_array($result);
+        return $row['user'];
+    }
+    elseif(isset($_COOKIE["token"]))
+    {
 
-    $result = mysql_query($getUserSQL);
+        $getUserSQL = sprintf("SELECT user FROM session WHERE token='%s'",
+            mysql_real_escape_string($_COOKIE["token"]));
 
-    $row = mysql_fetch_array($result);
-    return $row['user'];
+        $result = mysql_query($getUserSQL);
+
+        $row = mysql_fetch_array($result);
+        return $row['user'];
+    }
 }
 
 function getName()

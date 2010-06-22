@@ -3,7 +3,9 @@ include_once 'includes/display.php';
 include_once 'login/display.php';
 
 session_start();
+
 connect();
+
 $result = checkForSession();
 
 if($result)
@@ -52,5 +54,5 @@ HTML;
     displayPage($content, $page, $fullCount, $imagesPerPage);
 }    
 else
-    redirect("login/login.php?page=http://mobile.afterpeanuts.com/");
+    redirect("login/auth.php?page=http://mobile.afterpeanuts.com/");
 ?>
