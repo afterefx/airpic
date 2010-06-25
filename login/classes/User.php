@@ -42,20 +42,108 @@ class User
         }
     }
          
-    public function getUserName();
-    public function setUserName($userName);
-    public function getAdmin();
-    public function setAdmin();
-    public function getUserFname();
-    public function setUserFname();
-    public function getUserEmail();
-    public function setUserEmail();
-    public function checkPassword();
-    public function setPassword();
-    public function getAPIKey();
-    public function createAPIKey();
-    public function addUser();
-    public function deleteUser();
-    public function loginUser();
+    public function getUserName()
+    {
+        if(isset($this->userID)
+            return $this->userID;
+        else
+        {
+
+            if(isset($_SESSION["token"]))
+            {
+                $getUserSQL = sprintf("SELECT user FROM session WHERE token='%s'",
+                    mysql_real_escape_string($_SESSION["token"]));
+
+                $result = $_database->query($getUserSQL);
+
+                $row = mysql_fetch_array($result);
+                return $row['user'];
+            }
+            elseif(isset($_COOKIE["token"]))
+            {
+
+                $getUserSQL = sprintf("SELECT user FROM session WHERE token='%s'",
+                mysql_real_escape_string($_COOKIE["token"]));
+
+                $result = $_database->query($getUserSQL);
+
+                $row = mysql_fetch_array($result);
+                return $row['user'];
+            }
+        }
+
+    }
+
+    public function setUserName($userName)
+    {
+        //make update sql query
+    }
+
+    public function getAdmin()
+    {
+   
+    } 
+
+    public function setAdmin()
+    {
+    
+    }
+
+
+    public function getUserFname()
+    {
+
+    }
+
+    public function setUserFname()
+    {
+
+    }
+
+    public function getUserEmail()
+    {
+
+    }
+
+    public function setUserEmail()
+    {
+
+    }
+
+    public function checkPassword()
+    {
+
+    }
+
+    public function setPassword()
+    {
+
+    }
+
+    public function getAPIKey()
+    {
+
+    }
+
+    public function createAPIKey()
+    {
+
+    }
+
+    public function addUser()
+    {
+
+    }
+
+    public function deleteUser()
+    {
+
+    }
+
+    public function loginUser()
+    {
+
+    }
+
 
 ?>
