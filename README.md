@@ -1,4 +1,4 @@
-__AIRPIC__
+AIRPIC
 ==============================
 
 Goals
@@ -44,21 +44,21 @@ To Do
         * a results message of success or failure should be shown along with what was changed.
 
 * add userList.php page
-    * should check to see if user is admin
-    * if user is admin then list all users
-        * shows id,username,email, isAdmin checkbox, date created, last modified date, modified by, and apikey
-        * there will be buttons next to each user to delete the user or to edit the user
-            * when the edit user button is clicked the userid will be sent via _GET
-    * on the user page the admin will be able to 
-        * edit the username
-        * update the password
-        * edit the email address
-        * regenerate an apikey
+  * should check to see if user is admin
+  * if user is admin then list all users
+      * shows id,username,email, isAdmin checkbox, date created, last modified date, modified by, and apikey
+      * there will be buttons next to each user to delete the user or to edit the user
+          * when the edit user button is clicked the userid will be sent via _GET
+  * on the user page the admin will be able to 
+      * edit the username
+      * update the password
+      * edit the email address
+      * regenerate an apikey
 
 * on addEntry.php
-    * check if user already exists (put to all lower first)
-    * add javascript to check format of email
-    * generate api key
+  * check if user already exists (put to all lower first)
+  * add javascript to check format of email
+  * generate api key
 
 * later add activation to website for user accounts
     * generate a random token for activation and add that to a waiting to be activated table
