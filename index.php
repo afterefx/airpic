@@ -20,7 +20,7 @@ HTML;
     {
         $content.=<<<HTML
 
-            <form method="get" action="http://mobile.afterpeanuts.com/">
+            <form method="post" action="delete.php">
 
 HTML;
     }
@@ -56,7 +56,7 @@ HTML;
 HTML;
 
         if(isAdmin())
-            $content.=createDeleteLinks($fullArray, $page, $imagesPerPage);
+            $content.=createDeleteLinks($fullArray, $page, $imagesPerPage, $index);
             
 
     }
@@ -87,9 +87,9 @@ else
 //====================================================================
     //functions ====================================================== 
 //====================================================================
-function createDeleteLinks($imgNameArray, $page, $imagesPerPage)
+function createDeleteLinks($imgNameArray, $page, $imagesPerPage, $index)
 {
-    $index=($page-1)*$imagesPerPage; 
+    $index-=3;
     $content.=<<<HTML
         <div id="row">
 
@@ -100,7 +100,7 @@ HTML;
             if($imgNameArray[$index] != NULL) //display image if one is available
             {
                 $content.=<<<HTML
-                    <input type="checkbox" name="q" value="$imgNameArray[$index]" />
+                    <input type="radio" name="img" value="$imgNameArray[$index]" />
 HTML;
             }
             $index++; //increment index
