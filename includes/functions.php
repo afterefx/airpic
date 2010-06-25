@@ -77,6 +77,9 @@ Param 4 - $thumbPath: path to thumbnails
 ***************************************/
 function checkNewImages($fullArray, $thumbArray, $fullPath="images/", $thumbPath="thumbs/")
 {
+    $uno_image_deleted = FALSE;
+    $uno_image_resized = FALSE;
+
     //Loop through all the images in the array
     for($index=0; $index < count($fullArray); $index++)
     {
@@ -88,6 +91,8 @@ function checkNewImages($fullArray, $thumbArray, $fullPath="images/", $thumbPath
         //echo "<br />";
         //echo "start check";
 
+        if($resized)
+            $uno_image_resized = TRUE;
         $resized= FALSE; //reset resized to false
 
         //if thumbarray is empty or filename is not in the thumb array
@@ -103,6 +108,8 @@ function checkNewImages($fullArray, $thumbArray, $fullPath="images/", $thumbPath
                 resizeImage($thumbPath, $fullPath,  $currentName); //resize the image
                 $resized=TRUE;
             }
+            else
+                $uno_image_deleted = TRUE;
         }
 
         
@@ -112,7 +119,7 @@ function checkNewImages($fullArray, $thumbArray, $fullPath="images/", $thumbPath
 
     //if image is resized or deleted 
     //don't allow cache of page
-    if($resized || $deleted)
+    if( $uno_image_deleted || $uno_image_resized)
     {
         echo <<<HTML
             <meta http-equiv="Pragma" content="no-cache">
