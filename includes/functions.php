@@ -198,12 +198,12 @@ HTML;
         if(isAdmin())
         {
             $content.=<<<HTML
-                <a href="#">Refresh thumbnails</a>
+                <a href="#">Refresh thumbnails</a> | 
 HTML;
         }
 
         $content.=<<<HTML
-                <a href="login/index.php">Main</a>
+                <a href="login/index.php">Main</a> | 
                 <a href="login/logout.php">Logout</a>
             </div>
         </div>
