@@ -22,7 +22,7 @@ To Do
     * add a account page for all users (management)
 
 * add uploader php file
-    * base64
+    * <strike>base64</strike>
     * via post
     * receives xml formatted document with api key and data to be stored.
         * later in development maybe add gps location and time taken.
