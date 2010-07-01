@@ -33,12 +33,18 @@ if($result)
         else
         {
             echo <<<HTML
-            <img src="$thumbPath" height="20%"/>
+            <div style="text-align:center;">
+            <h1> Are you sure?</h1>
+            <img src="$thumbPath" height="20%"/><br />
+            $imgName<br /> 
             <form method="post" action="delete.php">
-            <input type="checkbox" name="approved" />Yes<br />
+            <input type="checkbox" name="approved" />Yes, I'm positive I will
+            <u><b>never</b></u> want this image again.<br />
             <input type="hidden" name="img" value="$imgName" />
+            <br />
             <input type="submit" value="Delete" />
             </form>
+            </div>
 
 HTML;
         }
