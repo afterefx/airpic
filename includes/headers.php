@@ -8,7 +8,7 @@ $content=<<<HTML
 <link rel="stylesheet" type="text/css" href="includes/main.css" />
 </head>
 <body>
-<div id="title">$title</div>
+<div id="title"><a href="index.php">$title</a></div>
  
 HTML;
  
