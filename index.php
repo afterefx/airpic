@@ -65,6 +65,7 @@ HTML;
     if(isAdmin())
     {
         $content.=<<<HTML
+            <br />
             <input type="submit" value="Delete" />
             </form>
 
@@ -100,7 +101,9 @@ HTML;
             if($imgNameArray[$index] != NULL) //display image if one is available
             {
                 $content.=<<<HTML
+                    <span id="deleteRadio">
                     <input type="radio" name="img" value="$imgNameArray[$index]" />
+                    </span>
 HTML;
             }
             $index++; //increment index
