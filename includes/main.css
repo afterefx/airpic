@@ -17,7 +17,19 @@ border: 0;
     margin:     0;
     padding:   0;
     position:  relative;
+    color: #000;
 }
+
+#title a
+{
+    text-decoration:none;
+}
+
+#title a:visited
+{
+    color: #000;
+}
+
 
 #gallery
 {
@@ -31,20 +43,24 @@ border: 0;
         width: 425px;
 }
 
-.frame-outer span {
+.frame-outer span 
+{
         display: inline-block;
         background: url(images/frame-top-left.jpg) no-repeat left top;
 }
 
-.frame-outer span span {
+.frame-outer span span 
+{
         background: url(images/frame-bottom-left.jpg) no-repeat left bottom;
 }
 
-.frame-outer span span span {
+.frame-outer span span span 
+{
         background: url(images/frame-top-right.jpg) no-repeat right top;
 }
 
-.frame-outer span span span span {
+.frame-outer span span span span 
+{
         background: url(images/frame-bottom-right.jpg) no-repeat right bottom;
         padding: 32px;
         min-width: 150px;
@@ -52,9 +68,41 @@ border: 0;
         overflow: hidden;
 }
 
-.frame-outer span span span span * {
+.frame-outer span span span span * 
+{
         max-width: 425px;
 }
-.frame-outer span span span span span {
+
+.frame-outer span span span span span 
+{
         background: none;
+}
+
+#linkBox
+{
+    background-color: #d0d0d0;
+    text-align:center;
+    width: 240px;
+    position:absolute;
+    left: 40%;
+    border-style:dashed;
+    border-width:thin;
+    padding: 3px;
+    margin: 4px 0px;
+
+}
+
+#linkBox a
+{
+    color: #000;
+}
+
+#linkBox a:hover
+{
+    text-decoration:underline overline;
+}
+
+#deleteRadio
+{
+    margin: 0px 110px ;
 }
