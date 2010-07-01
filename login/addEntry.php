@@ -46,7 +46,7 @@ include_once 'display.php';
 
                 if($result)
                 {
-                    echo "SUCCESS!" .  $_POST['fname'] ." was added to the user database.<br />";
+                    echo "SUCCESS! " .  $_POST['fname'] ." was added to the user database.<br />";
                 }
                 else
                     echo "Failure";
