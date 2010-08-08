@@ -53,7 +53,7 @@ class Session
 
             $result = mysql_query($sql);
             if($result === FALSE)
-                die("Could nto query database");
+                die("Could not query database");
             else
             {
                 $_SESSION['token'] = $_COOKIE['token'];
@@ -83,6 +83,35 @@ class Session
     public function deleteSession()
     {
 
+        if(isset($_SESSION['token']))
+        {
+            $sql = sprintf("DELETE FROM session WHERE token='%s'", mysql_real_escape_string($_SESSION["token"]));
+
+            // execute query
+            $result = mysql_query($sql);
+        }
+        elseif(isset($_COOKIE['token']))
+        {
+            $sql = sprintf("DELETE FROM session WHERE token='%s'", mysql_real_escape_string($_COOKIE["token"]));
+
+            $result = mysql_query($sql);
+        }
+        else
+            $result = FALSE;
+
+        // delete cookies, if any
+        setcookie("token", "", time() - 3600);
+
+        // log user out
+        setcookie(session_name(), "", time() - 3600);
+
+
+        session_destroy();
+
+        if($result)
+            return true;
+        else
+            return false;
     }
 
 }

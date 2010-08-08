@@ -2,18 +2,19 @@
 
 function checkForSession()
 {
-    
+
     if(isset($_SESSION["token"]))
     {
         //check if session is still valid
         $sql = sprintf("SELECT 1 FROM session WHERE token='%s'",
         mysql_real_escape_string($_SESSION["token"]));
-    
+
         // execute query
         $result = mysql_query($sql);
         if ($result === FALSE)
             die("Could not query database");
-        else
+
+        if(mysql_num_rows($result) == 1)
         {
             updateLastSeen();
             return true;
@@ -28,7 +29,8 @@ function checkForSession()
         $result = mysql_query($sql);
         if($result === FALSE)
             die("Could nto query database");
-        else
+
+        if(mysql_num_rows($result) == 1)
         {
             $_SESSION['token'] = $_COOKIE['token'];
             updateLastSeen();
@@ -37,6 +39,7 @@ function checkForSession()
     }
     else
         return false;
+    return false;
 
 }
 
@@ -66,9 +69,9 @@ function getUserName()
     {
         $getUserSQL = sprintf("SELECT user FROM session WHERE token='%s'",
             mysql_real_escape_string($_SESSION["token"]));
-    
+
         $result = mysql_query($getUserSQL);
-    
+
         $row = mysql_fetch_array($result);
         return $row['user'];
     }
@@ -88,7 +91,7 @@ function getUserName()
 function getName()
 {
     $user = getUserName();
-    
+
     $sql = sprintf("SELECT fname FROM users WHERE user='%s'", $user);
     $result = mysql_query($sql);
 
@@ -101,7 +104,7 @@ function getName()
 function isAdmin()
 {
     $user = getUserName();
-    
+
     $sql = sprintf("SELECT isAdmin FROM users WHERE user='%s'", $user);
     $result = mysql_query($sql);
 

@@ -14,7 +14,7 @@ include_once 'display.php';
         top();
         if($result)
         {
-            if (isset($_POST["user"]) 
+            if (isset($_POST["user"])
                 && isset($_POST["pass"])
                 && isset($_POST["email"]))
             {
